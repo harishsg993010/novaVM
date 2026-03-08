@@ -31,10 +31,9 @@ sudo snap connect novavm:kvm
 # Linux
 curl -Lo nova https://github.com/harishsg993010/novaVM/releases/download/v0.1.0/nova-linux-amd64
 sudo install nova /usr/local/bin/nova
-
-# Windows
-# Download nova-windows-amd64.exe from the releases page and add to PATH
 ```
+
+**Windows:** Download `nova-windows-amd64.exe` from the [releases page](https://github.com/harishsg993010/novaVM/releases), rename to `nova.exe`, and add to PATH. The Windows CLI requires WSL2 with the Linux `nova` binary installed inside it — see [Windows guide](docs/windows.md).
 
 ### Build from Source
 
@@ -109,25 +108,26 @@ await sb.destroy();
 
 ## Windows Support
 
-NovaVM runs on Windows through WSL2. A native Windows CLI (`nova.exe`) manages the daemon in WSL via the REST API:
+NovaVM runs on Windows through WSL2. A native Windows CLI (`nova.exe`, 773 KB) manages the daemon running inside WSL via the REST API. **Both binaries are required:**
+
+1. **`nova.exe`** (Windows) — the CLI you run from PowerShell/cmd
+2. **`nova`** (Linux) — the daemon that runs inside WSL2
 
 ```powershell
-# Build the Windows CLI
-cd desktop
-cargo build --release
+# 1. Install the Linux binary in WSL (one-time)
+wsl -e sudo snap install novavm
+#   or: download nova-linux-amd64, copy into WSL as /usr/local/bin/nova
 
-# Setup (checks WSL, KVM, installs config)
-nova setup
+# 2. Download nova-windows-amd64.exe, rename to nova.exe, add to PATH
 
-# Start daemon in WSL
-nova start
-
-# Use it like Docker
+# 3. Setup and run
+nova setup    # Checks WSL, KVM, creates config + TAP
+nova start    # Launches daemon in WSL (background)
 nova run nginx:alpine --name web
 nova exec web cat /etc/os-release
 nova ps
 nova events -f
-nova stop
+nova stop     # Stops daemon
 ```
 
 See [Windows guide](docs/windows.md) for full setup instructions.

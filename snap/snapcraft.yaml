@@ -1,0 +1,61 @@
+name: novavm
+base: core22
+version: '0.1.1'
+summary: Lightweight microVM hypervisor with eBPF observability and OPA policy
+description: |
+  NovaVM runs OCI container images inside real KVM virtual machines with
+  eBPF observability and OPA policy enforcement.
+
+  Features:
+  - KVM isolation — each sandbox runs in its own VM
+  - 2s cold boot / 69ms warm boot with L3 snapshots
+  - OCI images from Docker Hub, GHCR, Quay.io
+  - 4-level caching (L1 blob, L2 rootfs, L3 snapshot, L4 pool)
+  - eBPF observability (host + guest kernel probes)
+  - OPA policy (admission + runtime enforcement)
+  - REST + gRPC APIs
+  - Python and TypeScript SDKs (zero dependencies)
+
+  Quick start:
+    sudo snap install novavm
+    sudo snap connect novavm:kvm
+    sudo novavm.nova setup
+    sudo novavm.nova serve --config /etc/nova/nova.toml
+    novavm.nova run nginx:alpine --name web
+
+grade: stable
+confinement: strict
+license: LGPL-2.1
+architectures:
+  - build-on: amd64
+
+plugs:
+  kvm:
+    interface: kvm
+  network:
+    interface: network
+  network-bind:
+    interface: network-bind
+  home:
+    interface: home
+  system-observe:
+    interface: system-observe
+
+parts:
+  nova:
+    plugin: dump
+    source: .
+    organize:
+      nova: bin/nova
+    stage:
+      - bin/nova
+
+apps:
+  nova:
+    command: bin/nova
+    plugs:
+      - kvm
+      - network
+      - network-bind
+      - home
+      - system-observe

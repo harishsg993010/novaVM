@@ -16,20 +16,44 @@ A lightweight microVM hypervisor that runs OCI container images inside real KVM 
 
 *Benchmarks on same WSL2 hardware with nginx:alpine. See [benchmark.md](benchmark.md).*
 
-## Quick Start
+## Install
+
+### Snap (recommended)
 
 ```bash
-# Build
-cargo build --release --target x86_64-unknown-linux-gnu
+sudo snap install novavm
+sudo snap connect novavm:kvm
+```
 
-# Package assets (kernel, eBPF, agent) into the binary
-sudo ./scripts/package-assets.sh
+### Download from GitHub Releases
+
+```bash
+# Linux
+curl -Lo nova https://github.com/harishsg993010/novaVM/releases/download/v0.1.0/nova-linux-amd64
+sudo install nova /usr/local/bin/nova
+
+# Windows
+# Download nova-windows-amd64.exe from the releases page and add to PATH
+```
+
+### Build from Source
+
+```bash
+# Clone
+git clone https://github.com/harishsg993010/novaVM.git
+cd novavm
+
+# Build
 cargo build --release --target x86_64-unknown-linux-gnu
 
 # Install
 sudo cp target/x86_64-unknown-linux-gnu/release/nova /usr/local/bin/
+```
 
-# First run auto-extracts embedded assets
+## Quick Start
+
+```bash
+# Setup and start daemon
 sudo nova setup
 sudo nova serve --config /etc/nova/nova.toml
 ```

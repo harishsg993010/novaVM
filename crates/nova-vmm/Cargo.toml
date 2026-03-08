@@ -1,0 +1,29 @@
+[package]
+name = "nova-vmm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaVM Virtual Machine Monitor"
+
+[lib]
+name = "nova_vmm"
+path = "src/lib.rs"
+
+[[bin]]
+name = "nova-vmm"
+path = "src/main.rs"
+
+[dependencies]
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+serde = { workspace = true }
+toml = { workspace = true }
+libc = { workspace = true }
+signal-hook = { workspace = true }
+nova-kvm = { workspace = true }
+nova-mem = { workspace = true }
+nova-boot = { workspace = true }
+nova-virtio = { workspace = true }
+serde_json = { workspace = true }

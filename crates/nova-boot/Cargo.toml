@@ -1,0 +1,15 @@
+[package]
+name = "nova-boot"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Linux kernel loading (bzImage, ELF, PVH) for NovaVM"
+
+[dependencies]
+thiserror = { workspace = true }
+tracing = { workspace = true }
+nova-mem = { workspace = true }
+nova-kvm = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

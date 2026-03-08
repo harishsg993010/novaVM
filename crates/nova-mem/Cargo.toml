@@ -1,0 +1,15 @@
+[package]
+name = "nova-mem"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Guest memory management for NovaVM"
+
+[dependencies]
+thiserror = { workspace = true }
+tracing = { workspace = true }
+libc = { workspace = true }
+nova-kvm = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

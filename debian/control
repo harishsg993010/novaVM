@@ -1,0 +1,19 @@
+Package: novavm
+Version: 0.1.0
+Section: admin
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.31)
+Maintainer: Haris <harishsg99@gmail.com>
+Description: Lightweight microVM hypervisor with eBPF observability
+ NovaVM runs OCI container images inside real KVM virtual machines
+ with eBPF observability, OPA policy enforcement, and 4-level caching
+ for sub-100ms warm boot times.
+ .
+ Features:
+  - KVM-based VM isolation (not just namespaces)
+  - 69ms warm boot via L3 snapshot restore
+  - Real-time eBPF observability (host + guest)
+  - OPA admission control + runtime enforcement
+  - OCI image support (Docker Hub, GHCR, Quay)
+Homepage: https://github.com/novavm/novavm

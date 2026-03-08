@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+# Stop daemon if running
+if command -v systemctl &> /dev/null; then
+    systemctl stop novavm 2>/dev/null || true
+    systemctl disable novavm 2>/dev/null || true
+fi

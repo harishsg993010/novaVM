@@ -1,0 +1,33 @@
+[package]
+name = "nova-integration-tests"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaVM cross-crate integration tests"
+publish = false
+
+[dependencies]
+nova-kvm = { workspace = true }
+nova-mem = { workspace = true }
+nova-boot = { workspace = true }
+nova-virtio = { workspace = true }
+nova-vmm = { workspace = true }
+nova-eye-common = { workspace = true }
+nova-eye = { workspace = true }
+nova-api = { workspace = true }
+nova-policy = { workspace = true }
+nova-wasm = { workspace = true }
+nova-runtime = { workspace = true }
+anyhow = { workspace = true }
+wasmtime = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+tempfile = { workspace = true }
+flate2 = { workspace = true }
+tar = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+crossbeam-channel = { workspace = true }
+toml = { workspace = true }
+reqwest = { workspace = true }
+tokio = { workspace = true }

@@ -1,0 +1,19 @@
+[package]
+name = "nova-eye-agent"
+version = "0.1.0"
+edition = "2021"
+description = "Lightweight eBPF telemetry agent that runs inside a guest VM"
+
+# NOTE: This crate is NOT part of the workspace. It must be built separately
+# with a static musl target so it works in any Linux guest:
+#   cargo build -p nova-eye-agent --target x86_64-unknown-linux-musl --release
+#
+# The resulting binary is injected into the guest initrd by the daemon.
+
+[dependencies]
+aya = "0.13"
+nova-eye-common = { path = "../nova-eye-common" }
+libc = "0.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+bytes = "1"

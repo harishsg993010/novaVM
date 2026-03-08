@@ -1,0 +1,55 @@
+# NovaVM daemon configuration
+# Default path: /etc/nova/nova.toml
+# Override with: nova-daemon --config /path/to/nova.toml
+
+[daemon]
+socket = "/run/nova/nova.sock"
+image_dir = "/var/lib/nova/images"
+kernel = "/opt/nova/vmlinux-5.10"
+# tap_device = "nova-tap0"  # uncomment to enable guest networking
+
+[sensor]
+events_log = "/var/run/nova/events.jsonl"
+ebpf_dir = "/opt/nova/ebpf"
+
+[sensor.guest]
+enabled = true
+agent_path = "/opt/nova/bin/nova-eye-agent"
+event_port = 9876
+
+[[sensor.probes]]
+hook_type = "tracepoint"
+target = "sched/sched_process_exec"
+bytecode = "nova-eye-process"
+
+[[sensor.probes]]
+hook_type = "kprobe"
+target = "vfs_open"
+bytecode = "nova-eye-file"
+
+[[sensor.probes]]
+hook_type = "kprobe"
+target = "tcp_v4_connect"
+bytecode = "nova-eye-network"
+
+[[sensor.probes]]
+hook_type = "uprobe"
+target = "SSL_write"
+bytecode = "nova-eye-http"
+binary = "/usr/lib/libssl.so"
+
+[[sensor.probes]]
+hook_type = "uprobe"
+target = "SSL_read"
+bytecode = "nova-eye-http-read"
+binary = "/usr/lib/libssl.so"
+
+[policy]
+admission_enabled = true
+enforcement_enabled = true
+max_vcpus = 8
+max_memory_mib = 8192
+max_sandboxes = 100
+allowed_images = []
+bundle_dir = "/var/lib/nova/policy/bundles"
+enforcement_rules = "default"

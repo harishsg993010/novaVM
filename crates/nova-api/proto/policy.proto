@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package nova.policy.v1;
+
+// --------------------------------------------------------------------------
+// Policy evaluation and management
+// --------------------------------------------------------------------------
+
+service PolicyService {
+  // Evaluate a policy decision for a given input.
+  rpc Evaluate(EvaluateRequest) returns (EvaluateResponse);
+
+  // Load or update a policy bundle.
+  rpc LoadBundle(LoadBundleRequest) returns (LoadBundleResponse);
+
+  // List loaded policy bundles.
+  rpc ListBundles(ListBundlesRequest) returns (ListBundlesResponse);
+
+  // Remove a policy bundle.
+  rpc RemoveBundle(RemoveBundleRequest) returns (RemoveBundleResponse);
+
+  // Get policy engine status.
+  rpc GetStatus(GetPolicyStatusRequest) returns (PolicyStatus);
+}
+
+// --------------------------------------------------------------------------
+// Messages
+// --------------------------------------------------------------------------
+
+message EvaluateRequest {
+  // Policy path to evaluate (e.g. "nova/sandbox/allow").
+  string policy_path = 1;
+  // Input data for evaluation (JSON-encoded).
+  bytes input = 2;
+}
+
+message EvaluateResponse {
+  // Whether the policy allows the action.
+  bool allowed = 1;
+  // Reason for denial (empty if allowed).
+  string reason = 2;
+  // Full evaluation result (JSON-encoded).
+  bytes result = 3;
+  // Evaluation duration in microseconds.
+  uint64 eval_duration_us = 4;
+}
+
+message LoadBundleRequest {
+  // Bundle identifier.
+  string bundle_id = 1;
+  // Compiled OPA Wasm bundle.
+  bytes bundle_data = 2;
+}
+
+message LoadBundleResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+message ListBundlesRequest {}
+
+message ListBundlesResponse {
+  repeated BundleInfo bundles = 1;
+}
+
+message RemoveBundleRequest {
+  string bundle_id = 1;
+}
+
+message RemoveBundleResponse {}
+
+message GetPolicyStatusRequest {}
+
+message PolicyStatus {
+  // Number of loaded bundles.
+  uint32 loaded_bundles = 1;
+  // Total evaluations since startup.
+  uint64 total_evaluations = 2;
+  // Number of denied evaluations.
+  uint64 denied_evaluations = 3;
+  // Average evaluation time in microseconds.
+  uint64 avg_eval_duration_us = 4;
+}
+
+// --------------------------------------------------------------------------
+// Nested types
+// --------------------------------------------------------------------------
+
+message BundleInfo {
+  // Bundle identifier.
+  string bundle_id = 1;
+  // Number of policies in the bundle.
+  uint32 policy_count = 2;
+  // Timestamp of when the bundle was loaded (RFC 3339).
+  string loaded_at = 3;
+  // SHA-256 digest of the bundle.
+  string digest = 4;
+}

@@ -1,0 +1,39 @@
+[package]
+name = "nova-eye-ebpf"
+version = "0.1.0"
+edition = "2021"
+description = "NovaVM eBPF kernel probes (built separately for bpfel-unknown-none)"
+
+# NOTE: This crate is NOT part of the workspace. It must be built separately:
+#   cargo +nightly build -Z build-std=core --target bpfel-unknown-none -p nova-eye-ebpf
+
+[dependencies]
+aya-ebpf = "0.1"
+aya-log-ebpf = "0.1"
+nova-eye-common = { path = "../nova-eye-common", default-features = false }
+
+[[bin]]
+name = "nova-eye-process"
+path = "src/process.rs"
+
+[[bin]]
+name = "nova-eye-file"
+path = "src/file.rs"
+
+[[bin]]
+name = "nova-eye-network"
+path = "src/network.rs"
+
+[[bin]]
+name = "nova-eye-http"
+path = "src/http.rs"
+
+[[bin]]
+name = "nova-eye-http-read"
+path = "src/http_read.rs"
+
+[profile.release]
+lto = true
+opt-level = "z"
+codegen-units = 1
+panic = "abort"

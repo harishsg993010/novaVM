@@ -1,0 +1,16 @@
+[package]
+name = "nova-kvm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "KVM driver interface for NovaVM"
+
+[dependencies]
+thiserror = { workspace = true }
+tracing = { workspace = true }
+libc = { workspace = true }
+bitflags = { workspace = true }
+serde = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

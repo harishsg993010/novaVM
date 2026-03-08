@@ -1,0 +1,164 @@
+syntax = "proto3";
+
+package nova.runtime.v1;
+
+// --------------------------------------------------------------------------
+// Sandbox lifecycle management
+// --------------------------------------------------------------------------
+
+service RuntimeService {
+  // Create a new sandbox (microVM or Wasm instance).
+  rpc CreateSandbox(CreateSandboxRequest) returns (CreateSandboxResponse);
+
+  // Start a previously created sandbox.
+  rpc StartSandbox(StartSandboxRequest) returns (StartSandboxResponse);
+
+  // Stop a running sandbox gracefully.
+  rpc StopSandbox(StopSandboxRequest) returns (StopSandboxResponse);
+
+  // Destroy a sandbox and release all resources.
+  rpc DestroySandbox(DestroySandboxRequest) returns (DestroySandboxResponse);
+
+  // Get the current status of a sandbox.
+  rpc SandboxStatus(SandboxStatusRequest) returns (SandboxStatusResponse);
+
+  // List all sandboxes.
+  rpc ListSandboxes(ListSandboxesRequest) returns (ListSandboxesResponse);
+
+  // Execute a command inside a running sandbox.
+  rpc ExecInSandbox(ExecInSandboxRequest) returns (ExecInSandboxResponse);
+
+  // Stream VM console output.
+  rpc StreamConsole(StreamConsoleRequest) returns (stream ConsoleOutput);
+
+  // Send input to VM console (serial).
+  rpc SendConsoleInput(ConsoleInputRequest) returns (ConsoleInputResponse);
+}
+
+// --------------------------------------------------------------------------
+// Messages
+// --------------------------------------------------------------------------
+
+message CreateSandboxRequest {
+  // Unique sandbox identifier (client-provided or auto-generated).
+  string sandbox_id = 1;
+  // OCI image reference (e.g. "docker.io/library/nginx:latest").
+  string image = 2;
+  // Sandbox configuration.
+  SandboxConfig config = 3;
+  // Command to run inside the sandbox (overrides image default).
+  string command = 4;
+}
+
+message CreateSandboxResponse {
+  string sandbox_id = 1;
+}
+
+message StartSandboxRequest {
+  string sandbox_id = 1;
+}
+
+message StartSandboxResponse {}
+
+message StopSandboxRequest {
+  string sandbox_id = 1;
+  // Timeout in seconds before forceful kill.
+  uint32 timeout_seconds = 2;
+}
+
+message StopSandboxResponse {}
+
+message DestroySandboxRequest {
+  string sandbox_id = 1;
+}
+
+message DestroySandboxResponse {}
+
+message SandboxStatusRequest {
+  string sandbox_id = 1;
+}
+
+message SandboxStatusResponse {
+  string sandbox_id = 1;
+  SandboxState state = 2;
+  // PID of the VMM process (if running).
+  int32 pid = 3;
+  // Timestamp when the sandbox was created (RFC 3339).
+  string created_at = 4;
+}
+
+message ListSandboxesRequest {}
+
+message ListSandboxesResponse {
+  repeated SandboxStatusResponse sandboxes = 1;
+}
+
+message ExecInSandboxRequest {
+  string sandbox_id = 1;
+  repeated string command = 2;
+  // Optional environment variables.
+  map<string, string> env = 3;
+}
+
+message ExecInSandboxResponse {
+  int32 exit_code = 1;
+  bytes stdout = 2;
+  bytes stderr = 3;
+}
+
+// --------------------------------------------------------------------------
+// Enums & nested types
+// --------------------------------------------------------------------------
+
+enum SandboxState {
+  SANDBOX_STATE_UNKNOWN = 0;
+  SANDBOX_STATE_CREATED = 1;
+  SANDBOX_STATE_RUNNING = 2;
+  SANDBOX_STATE_STOPPED = 3;
+  SANDBOX_STATE_ERROR = 4;
+}
+
+message SandboxConfig {
+  // Number of virtual CPUs.
+  uint32 vcpus = 1;
+  // Memory in MiB.
+  uint32 memory_mib = 2;
+  // Kernel image path (for microVM sandboxes).
+  string kernel = 3;
+  // Root filesystem image path.
+  string rootfs = 4;
+  // Kernel command line arguments.
+  string cmdline = 5;
+  // Network configuration.
+  NetworkConfig network = 6;
+  // Environment variables for the workload.
+  map<string, string> env = 7;
+}
+
+message NetworkConfig {
+  // TAP device name.
+  string tap_device = 1;
+  // Guest IP address (CIDR notation).
+  string guest_ip = 2;
+  // Host IP address (CIDR notation).
+  string host_ip = 3;
+  // MAC address.
+  string mac_address = 4;
+}
+
+message StreamConsoleRequest {
+  string sandbox_id = 1;
+}
+
+message ConsoleOutput {
+  bytes data = 1;
+}
+
+message ConsoleInputRequest {
+  string sandbox_id = 1;
+  bytes data = 2;
+}
+
+message ConsoleInputResponse {
+  uint32 bytes_written = 1;
+}

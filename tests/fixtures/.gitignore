@@ -1,0 +1,7 @@
+# Downloaded test binaries
+*.bin
+vmlinux*
+
+# OCI image fixtures (downloaded by download-oci.sh)
+alpine-oci/
+nginx-oci/

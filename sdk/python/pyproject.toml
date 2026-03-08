@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "novavm"
+version = "0.1.0"
+description = "Python SDK for NovaVM — run code in secure microVM sandboxes"
+readme = "README.md"
+license = {text = "LGPL-2.1"}
+requires-python = ">=3.8"
+dependencies = []
+authors = [{name = "Haris", email = "harishsg99@gmail.com"}]
+keywords = ["sandbox", "microvm", "code-execution", "novavm"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+    "Topic :: System :: Emulators",
+]
+
+[project.urls]
+Homepage = "https://github.com/harishsg993010/novaVM"
+Repository = "https://github.com/harishsg993010/novaVM"
+
+[tool.setuptools.packages.find]
+include = ["novavm*"]

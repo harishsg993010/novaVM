@@ -1,0 +1,20 @@
+[Unit]
+Description=NovaVM Daemon
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nova-daemon --config /etc/nova/nova.toml
+Restart=on-failure
+RestartSec=5
+Environment=RUST_LOG=info
+
+# Security hardening
+NoNewPrivileges=no
+ProtectSystem=strict
+ReadWritePaths=/var/lib/nova /var/run/nova /run/nova
+ProtectHome=yes
+
+[Install]
+WantedBy=multi-user.target

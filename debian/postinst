@@ -1,0 +1,36 @@
+#!/bin/bash
+set -e
+
+# Create runtime directories
+mkdir -p /var/lib/nova/images/snapshots
+mkdir -p /var/run/nova
+mkdir -p /var/lib/nova/policy/bundles
+
+# Reload systemd if available
+if command -v systemctl &> /dev/null; then
+    systemctl daemon-reload
+    echo ""
+    echo "NovaVM installed successfully!"
+    echo ""
+    echo "  Start the daemon:    sudo systemctl start novavm"
+    echo "  Enable on boot:      sudo systemctl enable novavm"
+    echo "  Run a sandbox:       novactl run nginx:alpine"
+    echo ""
+    echo "  Config:              /etc/nova/nova.toml"
+    echo "  Logs:                journalctl -u novavm -f"
+    echo ""
+else
+    echo ""
+    echo "NovaVM installed successfully!"
+    echo ""
+    echo "  Start the daemon:    sudo nova-daemon --config /etc/nova/nova.toml"
+    echo "  Run a sandbox:       novactl run nginx:alpine"
+    echo ""
+fi
+
+# Check KVM availability
+if [ ! -e /dev/kvm ]; then
+    echo "WARNING: /dev/kvm not found. NovaVM requires KVM support."
+    echo "         On WSL2: Set-VMProcessor -VMName WSL -ExposeVirtualizationExtensions \$true"
+    echo ""
+fi

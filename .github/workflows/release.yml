@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          targets: x86_64-unknown-linux-gnu
+
+      - name: Build
+        run: cargo build --release --target x86_64-unknown-linux-gnu -p nova-api -p novactl
+
+      - name: Build .deb
+        run: bash scripts/build-deb.sh
+
+      - name: Prepare release artifacts
+        run: |
+          cp target/x86_64-unknown-linux-gnu/release/nova-daemon .
+          cp target/x86_64-unknown-linux-gnu/release/novactl .
+          # Include kernel if present
+          test -f tests/fixtures/vmlinux-5.10 && cp tests/fixtures/vmlinux-5.10 . || true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            novavm_*_amd64.deb
+            nova-daemon
+            novactl
+            vmlinux-5.10
+          body: |
+            ## Install
+
+            **Option 1: Install script**
+            ```bash
+            curl -sSL https://raw.githubusercontent.com/${{ github.repository }}/main/install.sh | sudo bash
+            ```
+
+            **Option 2: .deb package**
+            ```bash
+            wget https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/novavm_${{ github.ref_name  }}_amd64.deb
+            sudo dpkg -i novavm_*.deb
+            sudo systemctl start novavm
+            ```
+
+            **Option 3: Binaries**
+            ```bash
+            sudo cp nova-daemon novactl /usr/bin/
+            ```
+
+            ## Quick start
+            ```bash
+            novactl run nginx:alpine
+            ```

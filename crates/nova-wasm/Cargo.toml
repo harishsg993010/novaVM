@@ -1,0 +1,18 @@
+[package]
+name = "nova-wasm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaVM Wasm executor with WASI support"
+
+[dependencies]
+thiserror = { workspace = true }
+tracing = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+wasmtime = { workspace = true }
+wasmtime-wasi = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+parking_lot = { workspace = true }
+bytes = { workspace = true }

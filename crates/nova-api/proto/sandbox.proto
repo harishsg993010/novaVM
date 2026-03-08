@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package nova.sandbox.v1;
+
+// --------------------------------------------------------------------------
+// Sandbox image management
+// --------------------------------------------------------------------------
+
+service SandboxImageService {
+  // Pull an OCI image and convert it to a rootfs.
+  rpc PullImage(PullImageRequest) returns (PullImageResponse);
+
+  // List locally available images.
+  rpc ListImages(ListImagesRequest) returns (ListImagesResponse);
+
+  // Remove a locally cached image.
+  rpc RemoveImage(RemoveImageRequest) returns (RemoveImageResponse);
+
+  // Inspect image metadata.
+  rpc InspectImage(InspectImageRequest) returns (InspectImageResponse);
+}
+
+// --------------------------------------------------------------------------
+// Messages
+// --------------------------------------------------------------------------
+
+message PullImageRequest {
+  // OCI image reference (e.g. "docker.io/library/nginx:latest").
+  string image_ref = 1;
+}
+
+message PullImageResponse {
+  // Local path to the converted rootfs image.
+  string rootfs_path = 1;
+  // SHA-256 digest of the image.
+  string digest = 2;
+}
+
+message ListImagesRequest {}
+
+message ListImagesResponse {
+  repeated ImageInfo images = 1;
+}
+
+message RemoveImageRequest {
+  string image_ref = 1;
+}
+
+message RemoveImageResponse {}
+
+message InspectImageRequest {
+  string image_ref = 1;
+}
+
+message InspectImageResponse {
+  ImageInfo info = 1;
+}
+
+// --------------------------------------------------------------------------
+// Nested types
+// --------------------------------------------------------------------------
+
+message ImageInfo {
+  // OCI image reference.
+  string image_ref = 1;
+  // SHA-256 digest.
+  string digest = 2;
+  // Total uncompressed size in bytes.
+  uint64 size_bytes = 3;
+  // Timestamp of when the image was pulled (RFC 3339).
+  string pulled_at = 4;
+  // Image format (raw, qcow2, etc.).
+  string format = 5;
+  // Local path to rootfs.
+  string rootfs_path = 6;
+}

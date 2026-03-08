@@ -1,0 +1,15 @@
+[package]
+name = "nova-agent"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaVM guest-side agent (PID 1 init process)"
+
+[dependencies]
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+nix = { workspace = true }
+libc = { workspace = true }

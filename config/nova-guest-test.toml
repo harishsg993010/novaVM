@@ -1,0 +1,43 @@
+[daemon]
+socket = "/run/nova/nova.sock"
+image_dir = "/var/lib/nova/images"
+kernel = "/opt/nova/vmlinux"
+api_port = 9800
+tap_device = "tap0"
+
+[sensor]
+events_log = "/var/run/nova/events.jsonl"
+ebpf_dir = "/opt/nova/ebpf"
+
+[sensor.guest]
+enabled = true
+agent_path = "/opt/nova/bin/nova-eye-agent"
+event_port = 9876
+
+[[sensor.probes]]
+name = "process_exec"
+hook_type = "tracepoint"
+target = "sched/sched_process_exec"
+bytecode = "nova-eye-process"
+enabled = true
+
+[[sensor.probes]]
+name = "file_open"
+hook_type = "kprobe"
+target = "vfs_open"
+bytecode = "nova-eye-file"
+enabled = true
+
+[[sensor.probes]]
+name = "net_connect"
+hook_type = "kprobe"
+target = "tcp_v4_connect"
+bytecode = "nova-eye-network"
+enabled = true
+
+[policy]
+admission_enabled = true
+enforcement_enabled = false
+max_vcpus = 8
+max_memory_mib = 8192
+max_sandboxes = 100

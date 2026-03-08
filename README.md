@@ -18,7 +18,15 @@ A lightweight microVM hypervisor that runs OCI container images inside real KVM 
 
 ## Install
 
-### Snap (recommended)
+### APT (Ubuntu PPA)
+
+```bash
+sudo add-apt-repository ppa:harishsg99/novavm
+sudo apt update
+sudo apt install novavm
+```
+
+### Snap
 
 ```bash
 sudo snap install novavm

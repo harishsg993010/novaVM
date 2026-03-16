@@ -1,0 +1,353 @@
+{
+  "version": "1.1",
+  "timestamp": "2026-03-16T17:03:11.130Z",
+  "environment": {
+    "node": "v22.22.1",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "config": {
+    "iterations": 100,
+    "timeoutMs": 120000
+  },
+  "results": [
+    {
+      "provider": "novavm",
+      "mode": "concurrent",
+      "concurrency": 100,
+      "wallClockMs": 30223.94,
+      "timeToFirstReadyMs": 381.79,
+      "iterations": [
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 704.95
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 399.41
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 5033.56
+        },
+        {
+          "ttiMs": 3367.64
+        },
+        {
+          "ttiMs": 4382.84
+        },
+        {
+          "ttiMs": 3244.98
+        },
+        {
+          "ttiMs": 2233.21
+        },
+        {
+          "ttiMs": 6000.24
+        },
+        {
+          "ttiMs": 1576.87
+        },
+        {
+          "ttiMs": 2331.03
+        },
+        {
+          "ttiMs": 1536.29
+        },
+        {
+          "ttiMs": 4940.51
+        },
+        {
+          "ttiMs": 5502.89
+        },
+        {
+          "ttiMs": 1128.09
+        },
+        {
+          "ttiMs": 4184.86
+        },
+        {
+          "ttiMs": 7929.4
+        },
+        {
+          "ttiMs": 6642.57
+        },
+        {
+          "ttiMs": 6115.4
+        },
+        {
+          "ttiMs": 7124.1
+        },
+        {
+          "ttiMs": 7101.23
+        },
+        {
+          "ttiMs": 7891.92
+        },
+        {
+          "ttiMs": 4309.95
+        },
+        {
+          "ttiMs": 4526.17
+        },
+        {
+          "ttiMs": 8972.31
+        },
+        {
+          "ttiMs": 7161.27
+        },
+        {
+          "ttiMs": 7827.79
+        },
+        {
+          "ttiMs": 7682.58
+        },
+        {
+          "ttiMs": 4771.62
+        },
+        {
+          "ttiMs": 7059.78
+        },
+        {
+          "ttiMs": 5507.17
+        },
+        {
+          "ttiMs": 5284.72
+        },
+        {
+          "ttiMs": 8919.89
+        },
+        {
+          "ttiMs": 8419.42
+        },
+        {
+          "ttiMs": 9142.23
+        },
+        {
+          "ttiMs": 8759.49
+        },
+        {
+          "ttiMs": 9955.5
+        },
+        {
+          "ttiMs": 9347.59
+        },
+        {
+          "ttiMs": 10294.97
+        },
+        {
+          "ttiMs": 13344.12
+        },
+        {
+          "ttiMs": 8917.13
+        },
+        {
+          "ttiMs": 10974.74
+        },
+        {
+          "ttiMs": 10490.78
+        },
+        {
+          "ttiMs": 11589.43
+        },
+        {
+          "ttiMs": 10510.74
+        },
+        {
+          "ttiMs": 11052.78
+        },
+        {
+          "ttiMs": 13897.01
+        },
+        {
+          "ttiMs": 14457.87
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 681.76
+        },
+        {
+          "ttiMs": 13358.74
+        },
+        {
+          "ttiMs": 402.04
+        },
+        {
+          "ttiMs": 13645.24
+        },
+        {
+          "ttiMs": 487.93
+        },
+        {
+          "ttiMs": 902.94
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 12824.01
+        },
+        {
+          "ttiMs": 16674.92
+        },
+        {
+          "ttiMs": 14761.48
+        },
+        {
+          "ttiMs": 16259.51
+        },
+        {
+          "ttiMs": 381.79
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 13907.18
+        },
+        {
+          "ttiMs": 15056.58
+        },
+        {
+          "ttiMs": 14483.7
+        },
+        {
+          "ttiMs": 16359.04
+        },
+        {
+          "ttiMs": 16040.83
+        },
+        {
+          "ttiMs": 16810.91
+        },
+        {
+          "ttiMs": 16348.23
+        },
+        {
+          "ttiMs": 21945.91
+        },
+        {
+          "ttiMs": 17050.91
+        },
+        {
+          "ttiMs": 0,
+          "error": "First command execution timed out"
+        },
+        {
+          "ttiMs": 17307.42
+        },
+        {
+          "ttiMs": 22829.11
+        },
+        {
+          "ttiMs": 19724.62
+        },
+        {
+          "ttiMs": 20096.54
+        },
+        {
+          "ttiMs": 17621.18
+        },
+        {
+          "ttiMs": 20974.15
+        },
+        {
+          "ttiMs": 19652.49
+        },
+        {
+          "ttiMs": 18565.95
+        },
+        {
+          "ttiMs": 23952.55
+        },
+        {
+          "ttiMs": 23549.07
+        },
+        {
+          "ttiMs": 17773.66
+        },
+        {
+          "ttiMs": 19932.5
+        },
+        {
+          "ttiMs": 19285.19
+        },
+        {
+          "ttiMs": 796.46
+        },
+        {
+          "ttiMs": 20818.83
+        },
+        {
+          "ttiMs": 17285.79
+        }
+      ],
+      "summary": {
+        "ttiMs": {
+          "min": 381.79,
+          "max": 23952.55,
+          "median": 9142.23,
+          "p95": 20974.15,
+          "p99": 23952.55,
+          "avg": 10374.68
+        }
+      },
+      "compositeScore": 7.55,
+      "successRate": 0.83
+    }
+  ]
+}

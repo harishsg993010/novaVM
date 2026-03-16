@@ -1,0 +1,96 @@
+{
+  "version": "1.1",
+  "timestamp": "2026-03-16T16:39:24.621Z",
+  "environment": {
+    "node": "v22.22.1",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "config": {
+    "iterations": 20,
+    "timeoutMs": 120000
+  },
+  "results": [
+    {
+      "provider": "novavm",
+      "mode": "concurrent",
+      "concurrency": 20,
+      "wallClockMs": 982.33,
+      "timeToFirstReadyMs": 133.57,
+      "iterations": [
+        {
+          "ttiMs": 135.06
+        },
+        {
+          "ttiMs": 133.57
+        },
+        {
+          "ttiMs": 271.16
+        },
+        {
+          "ttiMs": 221.51
+        },
+        {
+          "ttiMs": 500.43
+        },
+        {
+          "ttiMs": 415.52
+        },
+        {
+          "ttiMs": 595.7
+        },
+        {
+          "ttiMs": 365.96
+        },
+        {
+          "ttiMs": 635.95
+        },
+        {
+          "ttiMs": 319.74
+        },
+        {
+          "ttiMs": 550.4
+        },
+        {
+          "ttiMs": 693.43
+        },
+        {
+          "ttiMs": 457.8
+        },
+        {
+          "ttiMs": 977.51
+        },
+        {
+          "ttiMs": 785.6
+        },
+        {
+          "ttiMs": 828.32
+        },
+        {
+          "ttiMs": 878.2
+        },
+        {
+          "ttiMs": 929.36
+        },
+        {
+          "ttiMs": 736.06
+        },
+        {
+          "ttiMs": 237.96
+        }
+      ],
+      "summary": {
+        "ttiMs": {
+          "min": 133.57,
+          "max": 977.51,
+          "median": 525.41,
+          "p95": 929.36,
+          "p99": 977.51,
+          "avg": 533.46
+        }
+      },
+      "compositeScore": 93,
+      "successRate": 1
+    }
+  ]
+}
